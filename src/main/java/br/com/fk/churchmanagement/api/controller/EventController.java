@@ -1,9 +1,12 @@
 package br.com.fk.churchmanagement.api.controller;
 
-
+import br.com.fk.churchmanagement.api.dto.EventDayPersonDTO;
 import br.com.fk.churchmanagement.api.entity.Event;
+import br.com.fk.churchmanagement.api.service.EventDayPersonService;
 import br.com.fk.churchmanagement.api.service.EventService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +18,7 @@ import java.util.Optional;
 public class EventController {
 
     private final EventService eventService;
+    private final EventDayPersonService eventDayPersonService;
 
     @PostMapping
     public Event createEvent(@RequestBody Event event) {
@@ -45,6 +49,15 @@ public class EventController {
     @DeleteMapping("/{id}")
     public void deleteEvent(@PathVariable Long id) {
         eventService.deleteEvent(id);
+    }
+
+    @PostMapping("/{eventId}/person/{id}")
+    public ResponseEntity<Void> saveEventDayPerson(@PathVariable Long eventId, @PathVariable Long id, @RequestBody EventDayPersonDTO eventDayDTO) {
+        eventDayDTO.setEventId(eventId);
+        eventDayDTO.setPersonId(id);
+        eventDayPersonService.saveEventDayPerson(eventDayDTO);
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
 }

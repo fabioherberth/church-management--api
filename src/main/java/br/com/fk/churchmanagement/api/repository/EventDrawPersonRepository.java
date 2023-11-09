@@ -1,6 +1,6 @@
-package br.com.fk.apimultipleservices.repository;
+package br.com.fk.churchmanagement.api.repository;
 
-import br.com.fk.apimultipleservices.entity.EventDrawPerson;
+import br.com.fk.churchmanagement.api.entity.EventDrawPerson;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
