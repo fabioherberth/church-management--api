@@ -1,11 +1,11 @@
-package br.com.fk.apimultipleservices.service;
+package br.com.fk.churchmanagement.api.service;
 
-import br.com.fk.apimultipleservices.entity.EventDayPerson;
-import br.com.fk.apimultipleservices.entity.EventDrawPerson;
-import br.com.fk.apimultipleservices.entity.Person;
-import br.com.fk.apimultipleservices.repository.EventDayPersonRepository;
-import br.com.fk.apimultipleservices.repository.EventDrawPersonRepository;
-import br.com.fk.apimultipleservices.repository.PersonRepository;
+import br.com.fk.churchmanagement.api.entity.EventDayPerson;
+import br.com.fk.churchmanagement.api.entity.EventDrawPerson;
+import br.com.fk.churchmanagement.api.entity.Person;
+import br.com.fk.churchmanagement.api.repository.EventDayPersonRepository;
+import br.com.fk.churchmanagement.api.repository.EventDrawPersonRepository;
+import br.com.fk.churchmanagement.api.repository.PersonRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
