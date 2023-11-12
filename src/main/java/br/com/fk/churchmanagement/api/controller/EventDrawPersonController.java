@@ -15,9 +15,9 @@ public class EventDrawPersonController {
 
     private final EventDrawPersonService eventDrawPersonService;
 
-    @GetMapping("/event/{id}")
-    public Person drawPerson(@PathVariable Long id) {
-        return eventDrawPersonService.drawPersonEvent(id);
+    @GetMapping("/event/{eventId}")
+    public Person drawPerson(@PathVariable Long eventId) {
+        return eventDrawPersonService.drawPersonEvent(eventId);
     }
 
 }

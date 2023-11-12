@@ -1,10 +1,15 @@
 package br.com.fk.churchmanagement.api.service;
 
+import br.com.fk.churchmanagement.api.entity.Event;
+import br.com.fk.churchmanagement.api.entity.EventDayPerson;
 import br.com.fk.churchmanagement.api.entity.Person;
+import br.com.fk.churchmanagement.api.repository.EventDayPersonRepository;
+import br.com.fk.churchmanagement.api.repository.EventRepository;
 import br.com.fk.churchmanagement.api.repository.PersonRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,14 +18,34 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PersonService {
 
+    private final EventRepository eventRepository;
     private final PersonRepository personRepository;
+    private final EventDayPersonRepository dayPersonRepository;
 
-    public Person createPerson(Person user) {
-        return personRepository.save(user);
+    public Person createPerson(Long eventId, Person user) {
+        Optional<Person> optName = personRepository.findByNameIgnoreCase(user.getName());
+        if (optName.isPresent()) {
+            return null;
+        }
+
+        final Optional<Event> optEvent = eventRepository.findById(eventId);
+
+        if (optEvent.isEmpty()) {
+            return new Person();
+        }
+
+        final Person person = personRepository.save(user);
+        final EventDayPerson eventDayPerson = new EventDayPerson();
+        eventDayPerson.setPerson(person);
+        eventDayPerson.setEvent(optEvent.get());
+        eventDayPerson.setEventDay(new Date());
+
+        dayPersonRepository.save(eventDayPerson);
+        return person;
     }
 
     public List<Person> getAllPeople() {
-        return personRepository.findAll();
+        return personRepository.getAllOrderByName();
     }
 
     public Optional<Person> getPersonById(Long id) {
