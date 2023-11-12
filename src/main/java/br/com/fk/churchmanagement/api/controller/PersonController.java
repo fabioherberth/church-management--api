@@ -3,9 +3,12 @@ package br.com.fk.churchmanagement.api.controller;
 import br.com.fk.churchmanagement.api.entity.Person;
 import br.com.fk.churchmanagement.api.service.PersonService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -16,8 +19,15 @@ public class PersonController {
     private final PersonService personService;
 
     @PostMapping
-    public Person createPerson(@RequestBody Person person) {
-        return personService.createPerson(person);
+    public ResponseEntity<?> createPerson(@RequestBody Person person) {
+        Person personCreate = personService.createPerson(1L, person);
+
+        if (Objects.isNull(personCreate)) {
+             return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(personCreate);
     }
 
     @GetMapping

@@ -15,6 +15,7 @@ public interface EventDrawPersonRepository extends JpaRepository<EventDrawPerson
                       LEFT JOIN event_draw_person dp ON edp.id = dp.event_day_person_id AND p.id = dp.person_id
                      WHERE dp.id IS NULL
                        AND edp.event_id= :eventId
+                       AND DATE(edp.event_day) = DATE(NOW())
                       ORDER BY random()
                       LIMIT 1;
             """, nativeQuery = true)

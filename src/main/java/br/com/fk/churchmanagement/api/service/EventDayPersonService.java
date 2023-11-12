@@ -10,6 +10,8 @@ import br.com.fk.churchmanagement.api.repository.PersonRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -38,6 +40,15 @@ public class EventDayPersonService {
         eventDayPerson.setPerson(personOpt.get());
         eventDayPerson.setEventDay(eventDayDTO.getToday());
         dayPersonRepository.save(eventDayPerson);
+    }
+
+    public void savePeople(List<Long> peopleIds) {
+        peopleIds.removeAll(checkIfThePersonIsAlreadyPresent(peopleIds));
+        peopleIds.forEach(personId -> this.saveEventDayPerson(new EventDayPersonDTO(new Date(), 1L, personId)));
+    }
+
+    private List<Long> checkIfThePersonIsAlreadyPresent(List<Long> peopleIds) {
+       return dayPersonRepository.checkAttendanceOnTheDay(peopleIds);
     }
 
 }
