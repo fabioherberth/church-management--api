@@ -42,4 +42,12 @@ public class EventDrawPersonService {
 
         return personOpt.orElse(new Person());
     }
+
+    public Person drawPeoplePresentEvent(Long eventId) {
+        final Long personId = drawPersonRepository.willDrawPeoplePresent(eventId);
+        final Optional<Person> personOpt = personRepository.findById(personId);
+
+        return personOpt.orElse(new Person());
+    }
+
 }

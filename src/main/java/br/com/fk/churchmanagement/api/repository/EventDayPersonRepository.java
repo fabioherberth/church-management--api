@@ -21,7 +21,7 @@ public interface EventDayPersonRepository extends JpaRepository<EventDayPerson, 
             SELECT p."name" AS name
               FROM event_day_person edp
              INNER JOIN person p on edp.person_id = p.id
-             WHERE DATE(edp.event_day) = TO_DATE('2024-01-29','YYYY-MM-DD') -- DATE(NOW())
+             WHERE DATE(edp.event_day) = DATE(NOW())
              ORDER BY p.name;
             """, nativeQuery = true)
     List<String> findTheListOfPeoplePresentByToday();
