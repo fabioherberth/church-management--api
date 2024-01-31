@@ -45,6 +45,11 @@ public class EventDrawPersonService {
 
     public Person drawPeoplePresentEvent(Long eventId) {
         final Long personId = drawPersonRepository.willDrawPeoplePresent(eventId);
+
+        if (Objects.isNull(personId)) {
+            return new Person();
+        }
+
         final Optional<Person> personOpt = personRepository.findById(personId);
 
         return personOpt.orElse(new Person());
