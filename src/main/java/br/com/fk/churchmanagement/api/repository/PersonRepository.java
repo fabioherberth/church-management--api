@@ -19,7 +19,7 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
                       FROM event_day_person edp
                      WHERE DATE(edp.event_day) = DATE(NOW())
                      )
-              ORDER BY p."name";""", nativeQuery = true)
+              ORDER BY p.name;""", nativeQuery = true)
     List<Person> getAllOrderByName();
 
 }
