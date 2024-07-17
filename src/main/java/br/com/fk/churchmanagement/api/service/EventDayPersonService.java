@@ -51,4 +51,8 @@ public class EventDayPersonService {
        return dayPersonRepository.checkAttendanceOnTheDay(peopleIds);
     }
 
+    public List<String> getListPeoplePresent() {
+        return dayPersonRepository.findTheListOfPeoplePresentByToday();
+    }
+
 }

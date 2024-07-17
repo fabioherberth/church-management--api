@@ -20,6 +20,10 @@ public class PersonController {
 
     @PostMapping
     public ResponseEntity<?> createPerson(@RequestBody Person person) {
+        if (Objects.nonNull(person.getName())) {
+            person.setName(person.getName().strip());
+        }
+
         Person personCreate = personService.createPerson(1L, person);
 
         if (Objects.isNull(personCreate)) {
