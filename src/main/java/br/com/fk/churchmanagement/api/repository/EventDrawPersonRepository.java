@@ -16,7 +16,7 @@ public interface EventDrawPersonRepository extends JpaRepository<EventDrawPerson
                      WHERE dp.id IS NULL
                        AND edp.event_id= :eventId
                        AND DATE(edp.event_day) = DATE(NOW())
-                     ORDER BY random()
+                     ORDER BY RAND()
                      LIMIT 1;
             """, nativeQuery = true)
     Long willDrawPerson(@Param("eventId") Long eventId);
