@@ -1,5 +1,6 @@
 package br.com.fk.churchmanagement.api.service;
 
+import br.com.fk.churchmanagement.api.dto.CountAttendancePersonDTO;
 import br.com.fk.churchmanagement.api.dto.EventDayPersonDTO;
 import br.com.fk.churchmanagement.api.entity.Event;
 import br.com.fk.churchmanagement.api.entity.EventDayPerson;
@@ -55,4 +56,7 @@ public class EventDayPersonService {
         return dayPersonRepository.findTheListOfPeoplePresentByToday();
     }
 
+    public CountAttendancePersonDTO countAttendancePerson(final Long personId) {
+        return new CountAttendancePersonDTO(dayPersonRepository.countAttendancePersonById(personId));
+    }
 }

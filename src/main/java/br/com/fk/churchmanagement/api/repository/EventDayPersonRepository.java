@@ -26,4 +26,12 @@ public interface EventDayPersonRepository extends JpaRepository<EventDayPerson, 
             """, nativeQuery = true)
     List<String> findTheListOfPeoplePresentByToday();
 
+    @Query(value = """
+            SELECT COUNT(edp.id) as "frequency"
+              FROM event_day_person edp
+             INNER JOIN person p ON edp.person_id = p.id\s
+             WHERE p.id = :personId
+             GROUP BY edp.person_id;
+            """, nativeQuery = true)
+    Integer countAttendancePersonById(@Param("personId") Long personId);
 }

@@ -1,5 +1,6 @@
 package br.com.fk.churchmanagement.api.controller;
 
+import br.com.fk.churchmanagement.api.dto.CountAttendancePersonDTO;
 import br.com.fk.churchmanagement.api.service.EventDayPersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,12 @@ public class EventDayPersonController {
     @GetMapping("/peoplePresent")
     public List<String> getTheListOfPeoplePresent() {
         return dayPersonService.getListPeoplePresent();
+    }
+
+    @GetMapping("/countingAttendance/person/{personId}")
+    public ResponseEntity<CountAttendancePersonDTO> countingAttendance(@PathVariable Long personId) {
+        CountAttendancePersonDTO attendancePersonDTO = dayPersonService.countAttendancePerson(personId);
+        return new ResponseEntity<>(attendancePersonDTO, HttpStatus.OK);
     }
 
     @PostMapping("/present")
