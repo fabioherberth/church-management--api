@@ -18,7 +18,7 @@ public interface EventDayPersonRepository extends JpaRepository<EventDayPerson, 
     List<Long> checkAttendanceOnTheDay(@Param("peopleIds") List<Long> peopleIds);
 
     @Query(value = """
-            SELECT p."name" AS name
+            SELECT p.name AS name
               FROM event_day_person edp
              INNER JOIN person p on edp.person_id = p.id
              WHERE DATE(edp.event_day) = DATE(NOW())
